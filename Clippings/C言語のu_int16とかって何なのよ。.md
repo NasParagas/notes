@@ -1,0 +1,45 @@
+---
+title: "C言語のu_int16とかって何なのよ。"
+source: "https://blanktar.jp/blog/2013/04/what-is-uint16"
+author:
+  - "[[MacRat]]"
+published: 2013-04-28
+created: 2025-08-26
+description: "C言語のint8やu_int16といった型の意味とサイズ、最大値と最小値のまとめです。"
+tags:
+  - "clippings"
+---
+1. [top](https://blanktar.jp/)
+2. [blog](https://blanktar.jp/blog)
+3. [2013](https://blanktar.jp/blog/2013)
+4. [04](https://blanktar.jp/blog/2013/04)
+
+Unix向けに書かれたC言語のプログラムで見る `u_int8` や、 `u_int16` 、 `u_int32` って型は何なのか。というお話。 そんな検索ワードで来てくださった方が居たようなので。
+
+たとえば `u_int16` の場合、最初の `u_` は **unsigned** であること = 0未満を扱わないことを、最後の `16` は **16bit** 分のサイズがあることを示しています。 `u_` を外して **signed** になってマイナスを扱えるようになりますし、 `16` の代わりに `8` や `32` にすると格納できる容量が変わります。
+
+似たような型を並べてみると以下のようになります。
+
+| 名前 | 別名 | サイズ | 最小値 | 最大値 |
+| --- | --- | --- | --- | --- |
+| unsigned char | char / u\_int8 / uint8\_t | 8bit | 0 | 255 |
+| signed char | int8 / int8\_t | 8bit | \-128 | 127 |
+| short int | short / int16\_t | 16bit | \-32,768 | 32,767 |
+| unsigned short int | unsigned short / u\_int16 / uint16\_t | 16bit | 0 | 65,535 |
+| int | signed int | 32bit (※) | \-2,147,483,648 | 2,147,483,647 |
+| unsigned int | uint | 32bit (※) | 0 | 4,294,967,295 |
+| long int | int32\_t | 32bit | \-2,147,483,648 | 2,147,483,647 |
+| unsigned long int | u\_int32 / uint32\_t | 32bit | 0 | 4,294,967,295 |
+| long long int | int64\_t | 64bit | \-9,223,372,036,854,775,808 | 9,223,372,036,854,775,807 |
+| unsigned long long int | u\_int64 / uint64\_t | 64bit | 0 | 18,446,744,073,709,551,615 |
+
+※ int / unsigned int はOSによってサイズが異なる場合があります。
+
+ちなみに、Windowsだと `__int8` 、 `__int16` 、 `__int32` 、 `__int64` もあります。 さらには `DWORD` （符号なし32ビット）、 `WORD` （符号なし16ビット）なども。 同じ型でもいろいろ呼び方があってややこしいですね。
+
+---
+
+参考：
+
+- [Solaris 動的トレースガイド](https://docs.oracle.com/cd/E19253-01/819-0395/chp-typeopexpr-2/index.html)
+- [データ型の範囲 - Visual Studio](http://msdn.microsoft.com/ja-jp/library/vstudio/s3f49ktz.aspx)
