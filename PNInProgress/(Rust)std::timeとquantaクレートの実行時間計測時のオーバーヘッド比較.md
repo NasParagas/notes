@@ -38,13 +38,18 @@
 
 ```txt
 M4 pro
-Loop total:                  221.667µs
-std::Instant::now total:     12.740833ms
-quanta::Clock::now total:    913.228µs
-std minus empty (avg ns):    12.519 ns/call
-quanta minus empty (avg ns): 0.692 ns/call
+Loop total:               221.667µs
+std::Instant::now total:  12.740833ms
+quanta::Clock::now total: 913.228µs
+std - Loop (avg ns):      12.519 ns/call
+quanta - Loop (avg ns):   0.692 ns/call
 
-
+intel core i7 11700
+Loop total:               217.393µs
+std::Instant::now total:  12.221178ms
+quanta::Clock::now total: 5.621124ms
+std - Loop (avg ns):      12.004 ns/call
+quanta - Loop (avg ns):   5.404 ns/call
 
 
 ```
