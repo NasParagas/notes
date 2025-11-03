@@ -237,6 +237,7 @@ let array2 = ["monnnitiha"; 10]
   - その変数が宣言されたブロックから、プログラムの実行の制御が離れたとき、変数・値とものドロップする
   - 他の変数からその値にコピーせずにアクセスしたい場合、その値を参照するか、所有権を移すことになる
   - 所有権が移った場合、元の所有者は未初期化状態となる
+- 所有権を移す == ヒープに保存されている値はそのままに、ポインタ元を変える
 - 所有権が移ったことによるコンパイルエラーの例
 
 ```rust
@@ -256,14 +257,124 @@ fn main() {
 // 5 |     let u = s;
 //   |             ^ value used here after move
 //   |
-// help: consider cloning the value if the performance cost is acceptable
-//   |
-// 4 |     let t = s.clone();
-//   |              ++++++++
 ```
 
-- 次のような、片方のパスしか通らないようになっている場合には、ちゃんとそこまではコンパイルが通る。その後に
+- 次のような、片方のパスしか通らないようになっている場合には、ちゃんとそこまではコンパイルが通る。その後に移動させようとすると無理
 
 ```rust
+    let v = vec![1,2];
+    if v[0] > v[1]
+    {
+        mymove(v);
+    }
+    else
+    {
+        mymove(v);
+    }
+    mymove(v);
 
+fn mymove(v: Vec<i32>)
+{
+   let v2 = v;
+}
+// error[E0382]: use of moved value: `v`
+//   --> src/main.rs:21:12
+//    |
+// 12 |     let v = vec![1,2];
+//    |         - move occurs because `v` has type `Vec<i32>`, which does not implement the `Copy` trait
+// ...
+// 15 |         mymove(v);
+//    |                - value moved here
+// ...
+// 19 |         mymove(v);
+//    |                - value moved here
+// 20 |     }
+// 21 |     mymove(v);
+//    |            ^ value used here after move
+```
+
+- 所有権を移動せず、ヒープの値まで複製したい場合は`.clone`を使う
+
+```rs
+    let v = vec![1,2];
+    let mut v2 = v.clone();
+    v2[1] = 1;
+    for vi in v
+    {
+        println!("{}", vi);
+    }
+    for vi in v2
+    {
+        println!("{}", vi);
+    }
+
+// 1
+// 2
+// 1
+// 1
+```
+
+- 基本型の一部には`Copy型`と呼ばれる、上述したような所有権を移動するような操作をした場合に、所有権が移動するのではなく値がコピーされる型がある
+  - ディープコピーが負担とならない型、ドロップの際に特別なことをしない型、ヒープを指していない型など？
+  - 具体的には`int`, `float`, `bool`など
+
+```rs
+    let i = 1;
+    let i2 = i;
+    let i3 = i;
+```
+
+- ユーザー定義型では、すべてのフィールドにCopy型である場合に限り、明示的に属性をつけてあげることでCopy型にすることができる
+
+```rs
+// 何もつけない場合
+int main()
+{
+    let l = Label {number:3};
+    print(l);
+    println!("hello! {}", l.number);
+}
+
+struct Label { number: i64}
+
+fn print(l: Label) { println!("Hello {}", l.number)}
+// error[E0382]: borrow of moved value: `l`
+//   --> src/main.rs:41:27
+//    |
+// 39 |     let l = Label {number:3};
+//    |         - move occurs because `l` has type `Label`, which does not implement the `Copy` trait
+// 40 |     print(l);
+//    |           - value moved here
+// 41 |     println!("hello! {}", l.number);
+//    |                           ^^^^^^^^ value borrowed here after move
+```
+
+```rs
+// 属性をつける
+int main()
+{
+    let l = Label {number:3};
+    print(l);
+    println!("hello! {}", l.number);
+}
+
+#[derive(Clone, Copy)]
+struct Label { number: i64}
+
+fn print(l: Label) { println!("Hello {}", l.number)}
+// ok
+```
+
+```rs
+// Copy型でないフィールドがある場合には無理
+#[derive(Clone, Copy)]
+struct StringLabel { name: String}
+
+// error[E0204]: the trait `Copy` cannot be implemented for this type
+//   --> src/main.rs:44:17
+//    |
+// 44 | #[derive(Clone, Copy)]
+//    |                 ^^^^
+// 45 | struct StringLabel { name: String}
+//    |                      ------------ this field does not implement `Copy`
 ```
