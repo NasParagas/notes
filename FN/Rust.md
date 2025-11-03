@@ -230,3 +230,40 @@ let array2 = ["monnnitiha"; 10]
 - 列挙型=enum
   - とりうる値として決まった数の列挙子(variant)を持つ
 - `except`メソッドはその
+
+## 所有権と移動(move)
+
+- Rustでは、値の直接の所有者(変数)は一つだけ
+  - その変数が宣言されたブロックから、プログラムの実行の制御が離れたとき、変数・値とものドロップする
+  - 他の変数からその値にコピーせずにアクセスしたい場合、その値を参照するか、所有権を移すことになる
+  - 所有権が移った場合、元の所有者は未初期化状態となる
+- 所有権が移ったことによるコンパイルエラーの例
+
+```rust
+fn main() {
+    let s = vec!["udon".to_string(), "soba".to_string(), "ramen".to_string()];
+    let t = s;
+    let u = s;
+}
+
+// error[E0382]: use of moved value: `s`
+//  --> src/main.rs:5:13
+//   |
+// 3 |     let s = vec!["udon".to_string(), "soba".to_string(), "ramen".to_string()];
+//   |         - move occurs because `s` has type `Vec<String>`, which does not implement the `Copy` trait
+// 4 |     let t = s;
+//  |             - value moved here
+// 5 |     let u = s;
+//   |             ^ value used here after move
+//   |
+// help: consider cloning the value if the performance cost is acceptable
+//   |
+// 4 |     let t = s.clone();
+//   |              ++++++++
+```
+
+- 次のような、片方のパスしか通らないようになっている場合には、ちゃんとそこまではコンパイルが通る。その後に
+
+```rust
+
+```
