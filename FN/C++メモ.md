@@ -66,8 +66,105 @@ constexpr double ced2 = 1.4 * i;  // コンパイルエラー
 int count_x
 ```
 
+## ポインタ
+
+```cpp
+char v[6];
+
+// ポインタ型の宣言
+// 何も指示さない場合はnullptrで初期化j
+char* p = nullptr;
+
+// *(content of ~), &(address of ~) の使い方
+char* p4 = &v[3];
+char x = *p;
+```
+
 ## `struct`
 
 - 必要な構成要素を単一のデータ構造としてまとめる
 
 ```cpp
+struct Vector 
+{
+    int num_elements;
+    double *element;
+};
+```
+
+- 例えば以下のように初期化する
+
+```cpp
+void vector_init(Vector &vector, int num_elements)
+{
+    vector.element = new double[num_elements];
+    vector.num_elements = num_elements;
+    for (int i; i < vector.num_elements; i++)
+    {
+        vector.element[i] = i;
+    }
+}
+```
+
+- また、メンバへのアクセス方法は以下の通り
+
+```cpp
+void f(Vector v, Vector& rv, Vector* pv)
+{
+    int i1 = v.num_elements;
+    int i2 = rv.num_elements;
+    int i3 = pv->num_elements;
+}
+```
+
+## クラス
+
+- インターフェースと実装の独立
+  - ユーザーがアクセスできる部分とできない部分
+  - ここではインターフェース: publicメンバ、実装: privateメンバ
+- メンバの集まりを定義したもの
+  - 関数、データ、型...
+- 例
+
+```cpp
+class Vector 
+{
+ public:
+    // コンストラクタ: クラスのオブジェクト初期化時に使われることが保証される
+    // int型の引数を一つ要求
+    // :以降は初期化の手順
+    Vector(int num_element) :element{new double[num_element]}, num_element{num_element} {}
+
+    const double& operator[](int s) 
+    {
+        return element[s];
+    }
+    int size() 
+    {
+        return num_element;
+    }
+
+ private:
+    double* element;
+    int num_element;
+};
+
+
+```
+
+## 列挙体
+
+```cpp
+// 定義
+enum class Color
+{
+    red,
+    blue,
+    green
+};
+
+// 初期化
+Color color = Color::red;
+```
+
+
