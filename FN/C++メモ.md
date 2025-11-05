@@ -36,12 +36,12 @@ int i2 {7.1}  // コンパイルエラー
 
 ## `const`と`constexpr`
 
-- `const`をつけて定義した値は、そのスコープで変更されないことが約束される
+- `const`をつけて定義した値は、そのスコープで値が変更されないことが約束される
 - `constexpr`: コンパイル時に評価される
   - つまりコンパイル時には値が確定していることが要求される？
   - なんか実行時に確定でもいい場合はあるらしい？そもそもの理解が違うかも
   - C++14とかC++20以降あたりで制限が緩和されているらしい
-- 基本的には、`constexpr`を使わないよりも使った方が性能(処理速度？)が向上するらしい
+- 基本的には、`constexpr`を使った方が性能(処理速度？)が向上するらしい
 - 例
 
 ```cpp
@@ -51,8 +51,26 @@ constexpr double ced1 = 1.4 * ci;  // ok
 constexpr double ced2 = 1.4 * i;  // コンパイルエラー
 ```
 
-- `i`はコンパイル時には値が確定していない(後の処理で変わる可能性がある)
-- `const`付きであれば、初期化後には値が変更されないことが保証されているため、`ced2`もコンパイル時には値が確定していることが保証できる
+- `i`はコンパイル時には値が確定していない(後の処理で変わる可能性がある)ので、`ced2`がコンパイルエラーとなる
+- `const`付きであれば初期化後には値が変更されないことが保証されているため、`ced1`もコンパイル時には値が確定していることが保証できる
+- `const`オブジェクトに対して呼び出せるメンバ関数・演算子も`const`である必要がある
+  - 例は`cpp_ground`の`2_4_1`を参照して
+- `const`の位置に注意
+  - `const int f(x)`とした場合には、返り値が`const`、つまり返り値を変更しないということが保証される
+  - `int f(x) const`とした場合には、メンバ関数の処理がオブジェクトを変更しないことが保証される
+  - 例(`cpp_ground`の`2_4_1`)
+
+```cpp
+class Vector
+{
+public:
+    Vector(int num_elements);
+    const double& operator[](int index) const;
+    int size() const;
+private:
+///////
+}
+```
 
 ## `nullptr`
 
@@ -119,38 +137,84 @@ void f(Vector v, Vector& rv, Vector* pv)
 
 ## クラス
 
-- インターフェースと実装の独立
-  - ユーザーがアクセスできる部分とできない部分
-  - ここではインターフェース: publicメンバ、実装: privateメンバ
-- メンバの集まりを定義したもの
-  - 関数、データ、型...
+- 基本の考え方
+  - 3.2を読んどいて
 - 例
 
 ```cpp
-class Vector 
+class complex
 {
- public:
-    // コンストラクタ: クラスのオブジェクト初期化時に使われることが保証される
-    // int型の引数を一つ要求
-    // :以降は初期化の手順
-    Vector(int num_element) :element{new double[num_element]}, num_element{num_element} {}
+    double re, im;
 
-    const double& operator[](int s) 
-    {
-        return element[s];
-    }
-    int size() 
-    {
-        return num_element;
-    }
+public:
+    // コンストラクタ
+    complex(double r, double i): re{r}, im{i} {}
+    complex(double r): re{r}, im{0} {}
+    complex(): re{0}, im{0} {}  // デフォルトコンストラクタ
 
- private:
-    double* element;
-    int num_element;
+    // get
+    double real() const { return re; }
+    double imaginary() const { return im; }
+
+    // set
+    void real(double r) { re = r; }
+    void imaginary(double i) { im = i; }
+
+    // 算術定義(ユーザ定義演算子)
+    complex& operator+=(complex z)
+    {
+        complex z2;
+        re += z.re;
+        im += z.im;
+        return *this;  // このメンバ関数を実行したオブジェクトを参照する式(this自体はポインタ)
+    }
 };
 
+// complexの内部データに直接アクセスする必要のない演算はクラス定義とは分離して記述できる
+// すでに定義した演算を使って定義する
+complex operator+(complex a, complex b) { return a+=b; }
 
+int main()
+{
+    complex z;
+    complex z2;
+    z.real(10);
+    z.imaginary(5);
+    z2.real(4);
+    z += z2;
+    std::cout << z.real() << "\n" << z.imaginary() << std::endl;
+}
 ```
+
+- C++は、使わなくなったメモリを新しいオブジェクト用に割り当てられることを保証しない
+  - つまり明示的な解放が必要。コンストラクタが割り当てたメモリはデストラクタによって解放する
+- メモリ割り当て処理は裸で行わず、抽象化の設計に閉じ込めるようにする方が良い。そのためのコンストラクタとデストラクタ
+  - 裸の`new`や`delete`はエラーやリークの元
+- デストラクタの例(`3_2_1`):
+
+```cpp
+class Vector
+{
+  Vector( /* */);  // コンストラクタ
+  ~Vector();  // デストラクタ
+}
+
+Vector::Vector(int num_elements)
+       :element {new double[num_elements]}, num_elements{num_elements}
+{
+    for (int i = 0; i != num_elements; ++i)
+    {
+        element[i] = i;
+    }
+}
+
+Vector::~Vector() { delete[] element; }
+```
+
+## コンテナ
+
+- 要素の集合を保持するオブジェクト
+- 例: `Vector`など
 
 ## 列挙体
 
