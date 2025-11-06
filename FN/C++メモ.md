@@ -137,8 +137,10 @@ void f(Vector v, Vector& rv, Vector* pv)
 
 ## クラス
 
+### 具象型
+
 - 基本の考え方
-  - 3.2を読んどいて
+  - `3.2.1`を読んどいて
 - 例
 
 ```cpp
@@ -211,10 +213,76 @@ Vector::Vector(int num_elements)
 Vector::~Vector() { delete[] element; }
 ```
 
-## コンテナ
+#### コンテナ
 
 - 要素の集合を保持するオブジェクト
 - 例: `Vector`など
+- `コンストラクタ`で資源を獲得し、`デストラクタ`で開放する技法は、RAII(Resource Acquisition Is Initialization)と呼ばれる
+
+### 抽象型
+
+- 内部データを持たず、インターフェースのみを提供するクラス
+  - 3.2.2を時間たってから改めて読んだらまた違う表現が思いつきそう
+- 例
+
+```cpp
+class Container
+{
+public:
+    virtual double& operator[](int) = 0;
+    virtual int size() = 0;
+    virtual ~Container() {};
+};
+```
+
+- `Container`は抽象クラスと呼ぶ。初期化するようなデータを持たないためコンストラクタは必要ない
+  - デストラクタが必要な理由はいまいちわかってない(データはないけど領域は確保されてるのかな？それかコンストラクタは実質実装の方がになっているみたいな雰囲気？)が、順番的には派生クラス→基底クラスの順で解体されるはず
+    - 基底クラス自体のデストラクタが呼ばれたときにおかしくならないようにっぽい
+- 実装の例
+  - この場合、"`List_container`は`Container`を実装している"と表現するっぽい
+  - メンバ関数やデストラクタについて、基底クラス`Container`のメンバをオーバーライドしていると表現する
+  - ここでは記載していないが、派生クラスにはデータメンバや演算子を追加できる。柔軟性が上がるが、設計が難しいので使いどころ
+
+```cpp
+// 宣言
+class List_container : public Container 
+{
+public:
+    List_container() 
+    { }
+    List_container(std::initializer_list<double> il) : ld {il} 
+    { }
+    ~List_container()
+    { }
+    double& List_container::operator[](int index)
+    { }
+private:
+    std::list<double> ld;
+};
+
+// 実装
+List_container::List_container() 
+{ }
+List_container::List_container(std::initializer_list<double> il) : ld {il} 
+{ }
+List_container::~List_container()
+{ }
+double& List_container::operator[](int index)
+{
+    for (auto& x : ld)
+    {
+        if (index == 0)
+        {
+            return x;
+        }
+        --index;
+    }
+}
+```
+
+- 仮に、`Container`を利用する`use(&Container)`のような関数が存在する場合、基底クラスである`Container`の派生クラスでも使用することが出来る
+  - >この柔軟性の代償は、オブジェクトの操作をポインタや参照経由で行わなければならないことだ
+
 
 ## 列挙体
 
