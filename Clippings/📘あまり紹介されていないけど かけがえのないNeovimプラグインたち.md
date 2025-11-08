@@ -49,51 +49,51 @@ Info
 
 私が使っているプラグインのうち、事前調査に引っかかり除外したものを一覧で紹介します。これらのプラグインは本記事での紹介対象外となります。
 
-| 紹介数 | プラグイン |
-| --- | --- |
-| 12 | [telescope.nvim](https://minerva.mamansoft.net/Notes/telescope.nvim) |
-| 9 | [nvim-treesitter](https://minerva.mamansoft.net/Notes/nvim-treesitter) |
-| 7 | [gitsigns.nvim](https://minerva.mamansoft.net/Notes/gitsigns.nvim) |
-| 7 | [lualine.nvim](https://minerva.mamansoft.net/Notes/lualine.nvim) |
-| 6 | [nvim-cmp](https://minerva.mamansoft.net/Notes/nvim-cmp) |
-| 4 | [Tokyo Night](https://minerva.mamansoft.net/Notes/Tokyo+Night+\(Neovim\)) |
-| 4 | [nvim-autopairs](https://minerva.mamansoft.net/Notes/nvim-autopairs) |
-| 4 | [nvim-lspconfig](https://minerva.mamansoft.net/Notes/nvim-lspconfig) |
-| 4 | [toggleterm.nvim](https://minerva.mamansoft.net/Notes/toggleterm.nvim) |
-| 3 | [LuaSnip](https://minerva.mamansoft.net/Notes/LuaSnip) |
-| 3 | [Noice](https://minerva.mamansoft.net/Notes/Noice) |
-| 3 | [aerial.nvim](https://minerva.mamansoft.net/Notes/aerial.nvim) |
-| 3 | [barbar.nvim](https://minerva.mamansoft.net/Notes/barbar.nvim) |
-| 3 | [colorizer.lua](https://minerva.mamansoft.net/Notes/colorizer.lua) |
-| 3 | [lazy.nvim](https://minerva.mamansoft.net/Notes/lazy.nvim) |
-| 3 | [nvim-scrollbar](https://minerva.mamansoft.net/Notes/nvim-scrollbar) |
-| 3 | [nvim-surround](https://minerva.mamansoft.net/Notes/nvim-surround) |
-| 3 | [trouble.nvim](https://minerva.mamansoft.net/Notes/trouble.nvim) |
-| 2 | [Lspsaga](https://minerva.mamansoft.net/Notes/Lspsaga) |
-| 2 | [Markdown Preview for (Neo)vim](https://minerva.mamansoft.net/Notes/Markdown+Preview+for+\(Neo\)vim) |
-| 2 | [cmp-buffer](https://minerva.mamansoft.net/Notes/cmp-buffer) |
-| 2 | [cmp-nvim-lsp](https://minerva.mamansoft.net/Notes/cmp-nvim-lsp) |
-| 2 | [cmp-path](https://minerva.mamansoft.net/Notes/cmp-path) |
-| 2 | [cmp\_luasnip](https://minerva.mamansoft.net/Notes/cmp_luasnip) |
-| 2 | [illuminate.vim](https://minerva.mamansoft.net/Notes/illuminate.vim) |
-| 2 | [lspkind-nvim](https://minerva.mamansoft.net/Notes/lspkind-nvim) |
-| 1 | [CamelCaseMotion](https://minerva.mamansoft.net/Notes/CamelCaseMotion+\(Vim\)) |
-| 1 | [Fidget](https://minerva.mamansoft.net/Notes/Fidget) |
-| 1 | [ReplaceWithRegister](https://minerva.mamansoft.net/Notes/ReplaceWithRegister) |
-| 1 | [Todo Comments](https://minerva.mamansoft.net/Notes/Todo+Comments) |
-| 1 | [VIM Table Mode](https://minerva.mamansoft.net/Notes/VIM+Table+Mode) |
-| 1 | [Which Key](https://minerva.mamansoft.net/Notes/Which+Key) |
-| 1 | [bufdelete.nvim](https://minerva.mamansoft.net/Notes/bufdelete.nvim) |
-| 1 | [cmp-cmdline](https://minerva.mamansoft.net/Notes/cmp-cmdline) |
-| 1 | [none-ls.nvim](https://minerva.mamansoft.net/Notes/none-ls.nvim) |
-| 1 | [nvim-bqf](https://minerva.mamansoft.net/Notes/nvim-bqf) |
-| 1 | [nvim-hlslens](https://minerva.mamansoft.net/Notes/nvim-hlslens) |
-| 1 | [nvim-treesitter-context](https://minerva.mamansoft.net/Notes/nvim-treesitter-context) |
-| 1 | [nvim-ts-context-commentstring](https://minerva.mamansoft.net/Notes/nvim-ts-context-commentstring) |
-| 1 | [nvim-ufo](https://minerva.mamansoft.net/Notes/nvim-ufo) |
-| 1 | [repeat.vim](https://minerva.mamansoft.net/Notes/repeat.vim) |
-| 1 | [replacer.nvim](https://minerva.mamansoft.net/Notes/replacer.nvim) |
-| 1 | [telescope-frecency.nvim](https://minerva.mamansoft.net/Notes/telescope-frecency.nvim) |
+| 紹介数 | プラグイン                                                                                                |
+| --- | ---------------------------------------------------------------------------------------------------- |
+| 12  | [telescope.nvim](https://minerva.mamansoft.net/Notes/telescope.nvim)                                 |
+| 9   | [nvim-treesitter](https://minerva.mamansoft.net/Notes/nvim-treesitter)                               |
+| 7   | [gitsigns.nvim](https://minerva.mamansoft.net/Notes/gitsigns.nvim)                                   |
+| 7   | [lualine.nvim](https://minerva.mamansoft.net/Notes/lualine.nvim)                                     |
+| 6   | [nvim-cmp](https://minerva.mamansoft.net/Notes/nvim-cmp)                                             |
+| 4   | [Tokyo Night](https://minerva.mamansoft.net/Notes/Tokyo+Night+\(Neovim\))                            |
+| 4   | [nvim-autopairs](https://minerva.mamansoft.net/Notes/nvim-autopairs)                                 |
+| 4   | [nvim-lspconfig](https://minerva.mamansoft.net/Notes/nvim-lspconfig)                                 |
+| 4   | [toggleterm.nvim](https://minerva.mamansoft.net/Notes/toggleterm.nvim)                               |
+| 3   | [LuaSnip](https://minerva.mamansoft.net/Notes/LuaSnip)                                               |
+| 3   | [Noice](https://minerva.mamansoft.net/Notes/Noice)                                                   |
+| 3   | [aerial.nvim](https://minerva.mamansoft.net/Notes/aerial.nvim)                                       |
+| 3   | [barbar.nvim](https://minerva.mamansoft.net/Notes/barbar.nvim)                                       |
+| 3   | [colorizer.lua](https://minerva.mamansoft.net/Notes/colorizer.lua)                                   |
+| 3   | [lazy.nvim](https://minerva.mamansoft.net/Notes/lazy.nvim)                                           |
+| 3   | [nvim-scrollbar](https://minerva.mamansoft.net/Notes/nvim-scrollbar)                                 |
+| 3   | [nvim-surround](https://minerva.mamansoft.net/Notes/nvim-surround)                                   |
+| 3   | [trouble.nvim](https://minerva.mamansoft.net/Notes/trouble.nvim)                                     |
+| 2   | [Lspsaga](https://minerva.mamansoft.net/Notes/Lspsaga)                                               |
+| 2   | [Markdown Preview for (Neo)vim](https://minerva.mamansoft.net/Notes/Markdown+Preview+for+\(Neo\)vim) |
+| 2   | [cmp-buffer](https://minerva.mamansoft.net/Notes/cmp-buffer)                                         |
+| 2   | [cmp-nvim-lsp](https://minerva.mamansoft.net/Notes/cmp-nvim-lsp)                                     |
+| 2   | [cmp-path](https://minerva.mamansoft.net/Notes/cmp-path)                                             |
+| 2   | [cmp\_luasnip](https://minerva.mamansoft.net/Notes/cmp_luasnip)                                      |
+| 2   | [illuminate.vim](https://minerva.mamansoft.net/Notes/illuminate.vim)                                 |
+| 2   | [lspkind-nvim](https://minerva.mamansoft.net/Notes/lspkind-nvim)                                     |
+| 1   | [CamelCaseMotion](https://minerva.mamansoft.net/Notes/CamelCaseMotion+\(Vim\))                       |
+| 1   | [Fidget](https://minerva.mamansoft.net/Notes/Fidget)                                                 |
+| 1   | [ReplaceWithRegister](https://minerva.mamansoft.net/Notes/ReplaceWithRegister)                       |
+| 1   | [Todo Comments](https://minerva.mamansoft.net/Notes/Todo+Comments)                                   |
+| 1   | [VIM Table Mode](https://minerva.mamansoft.net/Notes/VIM+Table+Mode)                                 |
+| 1   | [Which Key](https://minerva.mamansoft.net/Notes/Which+Key)                                           |
+| 1   | [bufdelete.nvim](https://minerva.mamansoft.net/Notes/bufdelete.nvim)                                 |
+| 1   | [cmp-cmdline](https://minerva.mamansoft.net/Notes/cmp-cmdline)                                       |
+| 1   | [none-ls.nvim](https://minerva.mamansoft.net/Notes/none-ls.nvim)                                     |
+| 1   | [nvim-bqf](https://minerva.mamansoft.net/Notes/nvim-bqf)                                             |
+| 1   | [nvim-hlslens](https://minerva.mamansoft.net/Notes/nvim-hlslens)                                     |
+| 1   | [nvim-treesitter-context](https://minerva.mamansoft.net/Notes/nvim-treesitter-context)               |
+| 1   | [nvim-ts-context-commentstring](https://minerva.mamansoft.net/Notes/nvim-ts-context-commentstring)   |
+| 1   | [nvim-ufo](https://minerva.mamansoft.net/Notes/nvim-ufo)                                             |
+| 1   | [repeat.vim](https://minerva.mamansoft.net/Notes/repeat.vim)                                         |
+| 1   | [replacer.nvim](https://minerva.mamansoft.net/Notes/replacer.nvim)                                   |
+| 1   | [telescope-frecency.nvim](https://minerva.mamansoft.net/Notes/telescope-frecency.nvim)               |
 
 また、集計に利用したサイトは以下です。
 

@@ -283,7 +283,6 @@ double& List_container::operator[](int index)
 - 仮に、`Container`を利用する`use(&Container)`のような関数が存在する場合、基底クラスである`Container`の派生クラスでも使用することが出来る
   - >この柔軟性の代償は、オブジェクトの操作をポインタや参照経由で行わなければならないことだ
 
-
 ## 列挙体
 
 ```cpp
@@ -298,5 +297,55 @@ enum class Color
 // 初期化
 Color color = Color::red;
 ```
+
+## コピーとムーブ
+
+- こんな自前のvectorがあったとする(一部省略)
+
+```cpp
+// コンストラクタ
+Vector();
+Vector(int num_elements);
+
+// 実装
+Vector::Vector()
+       :element {new double[0]}, num_elements{0}
+{ }
+Vector::Vector(int num_elements)
+       :element {new double[num_elements]}, num_elements{num_elements}
+{
+    for (int i = 0; i != num_elements; ++i)
+    {
+        element[i] = i;
+    }
+}
+```
+
+- この例のようにコピーコンストラクタや代入演算子を定義せずに初期化や代入を行う場合、デフォルトではshallow copy、つまりポインタのコピーが行われる
+
+```cpp
+int main()
+{
+    Vector v1(3);
+    Vector v2;
+    v2 = v1;
+    Vector v3 {v1};
+    std::cout << &v1[0] << "\n";
+    std::cout << &v2[0] << "\n";
+    std::cout << &v3[0] << "\n";
+    std::cout << &v1[1] << "\n";
+    std::cout << &v2[1] << "\n";
+    std::cout << &v3[1] << "\n";
+}
+// 0x5624c7bd32b0
+// 0x5624c7bd32b0
+// 0x5624c7bd32b0
+// 0x5624c7bd32b8
+// 0x5624c7bd32b8
+// 0x5624c7bd32b8
+// free(): double free detected in tcache 2
+// Aborted (core dumped)
+```
+
 
 
