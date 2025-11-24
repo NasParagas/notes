@@ -1,13 +1,13 @@
 ---
-title: "はじめてのDockerfile"
-source: "https://qiita.com/suzu12/items/c4bc47c0df6ec9b9290b"
+title: はじめてのDockerfile
+source: https://qiita.com/suzu12/items/c4bc47c0df6ec9b9290b
 author:
   - "[[suzu12]]"
 published: 2021-09-05
 created: 2025-08-26
-description: "はじめに 前回の記事では Dockerレジストリにあるイメージを pull してそのイメージを使用してコンテナを立てました。 このようにレジストリで提供されている Docker イメージを使用してコンテナをたてることもできますが、 自分で手を加えて自分の使いたい形でコンテ..."
+description: はじめに 前回の記事では Dockerレジストリにあるイメージを pull してそのイメージを使用してコンテナを立てました。 このようにレジストリで提供されている Docker イメージを使用してコンテナをたてることもできますが、 自分で手を加えて自分の使いたい形でコンテ...
 tags:
-  - "clippings"
+  - clippings
 ---
 ![](https://relay-dsp.ad-m.asia/dmp/sync/bizmatrix?pid=c3ed207b574cf11376&d=x18o8hduaj&uid=)
 
@@ -245,3 +245,5 @@ Facebookでシェアする
 いいねしたユーザー一覧へ移動
 
 13
+
+https://zenn.dev/reijilog/articles/33d3f6b2d1856e
